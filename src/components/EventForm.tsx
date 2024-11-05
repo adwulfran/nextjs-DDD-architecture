@@ -152,6 +152,7 @@ const EventForm: React.FC<EventFormProps> = ({ initialData, onSubmit }) => {
                         />
                     )}
                 />
+                
                 <Button type="submit" variant="contained" color="primary">Submit</Button>
             </form>
         </LocalizationProvider>

@@ -8,7 +8,7 @@ import { Button, MenuItem, Select, TextField } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFnsV3'
-
+import SearchIcon from '@mui/icons-material/Search';
 
 export const searchSchema = z.object({
     title: z.string(),
@@ -83,7 +83,9 @@ export default function EventsSearch() {
                             </Select>
                         )}
                     />
-                    <Button type="submit" variant="contained" color="primary">Submit</Button>
+                    <Button  type="submit" >
+                        <SearchIcon  fontSize="large"/>
+                    </Button>
                 </form>
             </LocalizationProvider>
         </div>

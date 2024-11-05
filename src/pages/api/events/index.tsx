@@ -18,7 +18,6 @@ const writeEvents = (events: IEvent[]): void => {
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
   switch (req.method) {
-    
     case 'POST':
       // Create event
       const events = readEvents();
@@ -32,8 +31,6 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
         location: req.body.location,
         maxCapacity: req.body.maxCapacity,
       };
-
-      console.log('new vent ? ',newEvent)
       events.push(newEvent);
       writeEvents(events);
       res.status(201).json(newEvent);

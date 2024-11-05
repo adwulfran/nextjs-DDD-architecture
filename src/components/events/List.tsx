@@ -2,19 +2,34 @@
 
 import { useRouter } from "next/navigation";
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import styles from "./styles.module.css"
+import { Button } from "@mui/material";
+import { IEvent } from "@/models/eventSchema";
+import EventCard from "./Card";
+import styles from "../styles.module.css";
 
-export default function EventsList({ items }: { items: { title: string }[] }) {
-    const router = useRouter()
+export default function EventsList(
+    { events }: { events: Partial<IEvent>[] }
+) {
+    const router = useRouter();
 
     return (
         <div>
-            {items?.map((item, index) => (<div key={index}>{item.title}</div>))}
-            <AddCircleOutlineIcon
-                fontSize="large"
-                className={styles.addIcon}
-                onClick={() => router.push('/create-event')}
-            />
+            <div className={styles.eventCards}>
+                {events?.map((event, index) => (
+                    <EventCard
+                        key={index}
+                        event={event}
+                        goToDetail={() => router.push(`/events/${event.id}`)}
+                    />
+
+                ))}
+            </div>
+            <Button variant="outlined" onClick={() => router.push('/create-event')}>
+                <AddCircleOutlineIcon
+                    fontSize="large"
+                />
+                &nbsp;Create
+            </Button>
         </div>
     )
 }

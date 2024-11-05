@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 
-export function find(query: { title: string, format?: string, date?: string }) {
+export function find(query: { title?: string, format?: string, date?: Date }) {
     const filePath = path.join(process.cwd(), 'data', 'events.json');
 
     const datas: { title: string, format?: string, date?:string}[] = JSON.parse(fs.readFileSync(filePath, 'utf-8'));

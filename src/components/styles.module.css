@@ -4,3 +4,10 @@
     align-items: center;
     gap:2vh;
 }
+
+.eventCards {
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    gap:1vh;
+}

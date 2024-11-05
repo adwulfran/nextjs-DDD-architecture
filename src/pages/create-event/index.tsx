@@ -46,8 +46,14 @@ export default function CreateEventPage() {
             {isLoading ?
                 (<> loading ... </>)
                 :
-                (<><ArrowBackIcon onClick={() => router.push('/')} sx={{ cursor: "pointer" }} />
-                    <EventForm onSubmit={handleSubmit} /> </>)
+                (<>
+                    <ArrowBackIcon
+                        onClick={() => router.push('/')}
+                        sx={{ cursor: "pointer" }}
+                        fontSize="large"
+                    />
+                    <EventForm onSubmit={handleSubmit} />
+                </>)
             }
 
             {error ?
