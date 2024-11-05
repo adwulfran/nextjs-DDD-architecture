@@ -8,31 +8,35 @@ import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFnsV3'
 import { TextField, Button } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { EventFormData } from '@/models/eventSchema';
+import { TimePicker } from '@mui/x-date-pickers/TimePicker';
+import { IEvent } from '@/models/eventSchema';
+import styles from './styles.eventform.module.css'
 
 
 interface EventFormProps {
-    initialData?: EventFormData;
+    initialData?: IEvent;
     onSubmit: (data: FormValues) => void;
 }
 
-
 const EventForm: React.FC<EventFormProps> = ({ initialData, onSubmit }) => {
 
-    const {  control, handleSubmit, formState } = useForm<FormValues>({
+    const { control, handleSubmit, formState } = useForm<FormValues>({
         resolver: zodResolver(eventSchema),
         defaultValues: initialData ? initialData : {
             title: "",
             description: "",
-            eventDate: new Date(),
+            date: new Date(),
+            time: new Date(),
+            format: "",
+            location: "",
             maxCapacity: 1,
-            participants: [""]
+           
         }
     });
 
     return (
         <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form onSubmit={handleSubmit(onSubmit)} className={styles.eventForm}>
                 <Controller
                     name="title"
                     control={control}
@@ -41,7 +45,6 @@ const EventForm: React.FC<EventFormProps> = ({ initialData, onSubmit }) => {
                             {...field}
                             label="title"
                             variant="outlined"
-                            fullWidth
                             margin="normal"
                             error={!!formState.errors.title}
                             helperText={formState.errors.title?.message}
@@ -56,28 +59,41 @@ const EventForm: React.FC<EventFormProps> = ({ initialData, onSubmit }) => {
                             {...field}
                             label="Description"
                             variant="outlined"
-                            fullWidth margin="normal"
                             multiline rows={4}
                         />
                     )}
                 />
                 <Controller
-                    name="eventDate"
+                    name="date"
                     control={control}
                     render={({ field }) => (
                         <DatePicker
-                            {...field}                           
+                            {...field}
                             label="Event Date"
                             onChange={(date) => field.onChange(date)}
                             value={field.value}
                             slotProps={{
                                 textField: {
-                                    error: !!formState.errors.eventDate,
-                                    helperText: formState.errors.eventDate?.message,
+                                    error: !!formState.errors.date,
+                                    helperText: formState.errors.date?.message,
                                 },
-                                
+
                             }}
                         />
+                    )}
+                />
+                <Controller
+                    name="time"
+                    control={control}
+                    render={({ field }) => (
+                        <TimePicker  {...field} label="Basic time picker" onChange={(time) => field.onChange(time)}
+                            value={field.value}
+                            slotProps={{
+                                textField: {
+                                    error: !!formState.errors.time,
+                                    helperText: formState.errors.time?.message,
+                                },
+                            }} />
                     )}
                 />
                 <Controller
@@ -89,8 +105,6 @@ const EventForm: React.FC<EventFormProps> = ({ initialData, onSubmit }) => {
                             label="Max Capacity"
                             type="number"
                             variant="outlined"
-                            fullWidth
-                            margin="normal"
                         />
                     )}
                 />

@@ -1,14 +1,10 @@
-export interface EventFormData {
+export interface IEvent {
     id: string;
     title: string;
-    description: string;
+    description?: string;
     format: 'in-person' | 'online' | 'hybrid';
-    eventDate: Date; // ISO date string
-    time: string; // Time string (HH:mm)
-    location: {
-        address?: string;
-        link?: string;
-    };
+    date: Date; 
+    time: Date;
+    location: string;
     maxCapacity: number;
-    participants?: string[]; // Array of participant names or IDs
 }

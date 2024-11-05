@@ -2,42 +2,41 @@
 import EventsSearch from '../components/events/Search';
 import EventsList from '../components/events/List';
 import { GetServerSideProps, NextPage } from 'next';
-
-
 import { find } from '@/db';
+import styles from './styles.module.css'
 
 interface EventProps {
-  items: {
+  events: {
     title: string;
     format?: string;
   }[];
 }
-const EventPage: NextPage<EventProps> = ({ items }) => {
+
+
+const EventPage: NextPage<EventProps> = ({ events }) => {
 
   return (
-    <div className="w-full">
-      <div className="flex w-full items-center justify-between text-blue-500">
+    <div className={styles.main}>
+      <div>
         <h1>Events</h1>
       </div>
-      <div className="mt-4 flex items-center justify-between gap-2 md:mt-8">
+      <div >
         <EventsSearch  />
-        {/* <CreateInvoice /> */}
       </div>
       {/*<Suspense key={query + currentPage} fallback={<InvoicesTableSkeleton />}>*/}
-      <EventsList items={items} />
+      <EventsList items={events} />
       {/* </Suspense>*/}
-      <div className="mt-5 flex w-full justify-center">
+      <div>
         {/* <Pagination totalPages={totalPages} /> */}
       </div>
-
-      <div></div>
     </div>
   );
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const items = find(context.query as { title: string, format?: string });
-  return { props: { items } };
+  console.log(`date : ${context.query.date}`)
+  const events = find(context.query as { title: string, format?: string, date?:string; });
+  return { props: { events } };
 };
 
 export default EventPage
