@@ -2,7 +2,7 @@
 import EventsSearch from '../components/events/Search';
 import EventsList from '../components/events/List';
 import { GetServerSideProps, NextPage } from 'next';
-import { find } from '@/db';
+import { find } from '../../db';
 import styles from './styles.module.css'
 
 interface EventProps {

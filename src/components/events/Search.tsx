@@ -34,7 +34,6 @@ export default function EventsSearch() {
     function onSubmit(data: FormSearchValues) {
         const params = new URLSearchParams(searchParams);
         for (const [key, value] of Object.entries(data)) {
-            console.log('key ? ',key)
             if (key) {
                 params.set(key, key !== "date" ? value.toString() : (value as Date).toLocaleDateString());
             } else {

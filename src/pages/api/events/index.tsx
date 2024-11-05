@@ -26,11 +26,11 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
         id: (events.length + 1).toString(),
         title: req.body.title,
         description: req.body.description,
+        format: req.body.format,
         date: req.body.date,
         time: req.body.time,
-        format: req.body.format,
+        location: req.body.location,
         maxCapacity: req.body.maxCapacity,
-        location: req.body.location
       };
 
       console.log('new vent ? ',newEvent)

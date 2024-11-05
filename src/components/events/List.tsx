@@ -1,13 +1,20 @@
 'use client';
 
-import Link from "next/link";
+import { useRouter } from "next/navigation";
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import styles from "./styles.module.css"
 
 export default function EventsList({ items }: { items: { title: string }[] }) {
+    const router = useRouter()
 
     return (
         <div>
             {items?.map((item, index) => (<div key={index}>{item.title}</div>))}
-            <Link href="/create-event">Create Event</Link>
+            <AddCircleOutlineIcon
+                fontSize="large"
+                className={styles.addIcon}
+                onClick={() => router.push('/create-event')}
+            />
         </div>
     )
 }

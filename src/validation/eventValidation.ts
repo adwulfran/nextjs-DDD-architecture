@@ -12,6 +12,8 @@ export const eventSchema = z.object({
 
     description: z.string().optional(),
 
+    format: z.string().min(4, { message: "Format is required" }),
+
     date: z.date()
         .refine((date) => {
             const today = new Date();
@@ -21,9 +23,7 @@ export const eventSchema = z.object({
 
     time: z.date(),
 
-    format: z.string(),
-
-    location : z.string(), 
+    location : z.string().min(1, { message: "Location is required" }), 
 
     maxCapacity: z.number().positive("Max capacity must be positive"),
 
