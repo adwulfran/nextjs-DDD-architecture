@@ -1,7 +1,7 @@
 import { IEvent } from "@/models/eventSchema";
+import { IQuerySearch } from "@/models/querySearchSchema";
 import fs from "fs";
 import path from "path";
-
 
 // Utility function to read events from the JSON file
 export function readEvents(): IEvent[] {
@@ -33,30 +33,31 @@ export function create(event: IEvent) {
     return newEvent;
 }
 
-export function find(query: { title?: string, format?: string, date?: Date }) {
+export function find(query: IQuerySearch) {
+    console.log(query)
     const events = readEvents(); 
 
-    const title = query?.title as string | undefined;
-    const format = query?.format as string | undefined;
-    const date = query?.date as string | undefined
+    const title = query?.title 
+    const format = query?.format 
+    const date = query?.date;
 
     const result = events.filter((e) =>
         e.title.includes(title ? title : "")
         && (e.format ? e.format?.includes(format ? format : "") : true)
         && (e.date ? e.date.toString()?.includes(date ? date : "") : true)
     );
-    return result
-    /* 
    
-    POUR PAGINATION :
     const limit = 5;
     if (query.page) {
+        const page = Number(query.page) - 1;
         return result.slice(
-            query.page*limit,
-            query.page*limit + limit
+            page*limit,
+            page*limit + limit
         )
     }
-     */ 
+
+    return result.slice(0,5)
+    
 }
 
 export function findById(id: string) {

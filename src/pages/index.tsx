@@ -5,6 +5,8 @@ import { GetServerSideProps, NextPage } from 'next';
 import { find } from '../../db';
 import styles from './styles.module.css'
 import { IEvent } from '@/models/eventSchema';
+import { IQuerySearch } from '@/models/querySearchSchema';
+import Pagination from '@/components/events/Pagination';
 
 interface EventProps {
   events: Partial<IEvent>[];
@@ -15,17 +17,11 @@ const IndexPage: NextPage<EventProps> = ({ events }) => {
 
   return (
     <div className={styles.main}>
-      <div>
-        <h1>Events</h1>
-      </div>
-      <div >
-        <EventsSearch  />
-      </div>
-      {/*<Suspense key={query + currentPage} fallback={<InvoicesTableSkeleton />}>*/}
+      <h1>Events</h1>
+      <EventsSearch />
       <EventsList events={events} />
-      {/* </Suspense>*/}
       <div>
-        {/* <Pagination totalPages={totalPages} /> */}
+        <Pagination totalPages={events.length} />
       </div>
     </div>
   );
@@ -33,7 +29,7 @@ const IndexPage: NextPage<EventProps> = ({ events }) => {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   console.log(`date : ${context.query.date}`)
-  const events = find(context.query as Partial<IEvent>);
+  const events = find(context.query as IQuerySearch);
   return { props: { events } };
 };
 

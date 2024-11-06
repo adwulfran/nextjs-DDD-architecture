@@ -19,7 +19,7 @@ const EventDetailPage = () => {
     useEffect(() => {
         if (!id) return;
         fetcher<IEvent>(`/api/events/${id}`).then((result) => setEvent(result));
-    }, [id])
+    }, [id]);
 
     async function handleSubmit(formData: FormValues) {
         const event = {

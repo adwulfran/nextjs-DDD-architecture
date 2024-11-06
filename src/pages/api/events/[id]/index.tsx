@@ -22,14 +22,6 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
             } catch (error) {
                 console.warn(error);
             }
-        /* const userIndex = users.findIndex(u => u.id === userId);
-         if (userIndex === -1) {
-             return res.status(404).json({ message: 'User not found' });
-         }
-
-         // Update the user data
-         users[userIndex] = { id: userId, name, email };
-         res.json(users[userIndex]); // Return the updated user*/
         default:
             res.status(405).end(); // Method Not Allowed
     }

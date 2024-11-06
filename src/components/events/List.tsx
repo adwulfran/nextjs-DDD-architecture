@@ -13,11 +13,12 @@ interface Props {
 }
 
 
-const EventsList:React.FC<Props> = ({ events }) =>  {
+const EventsList: React.FC<Props> = ({ events }) => {
     const router = useRouter();
-
+    console.log('render lists');
+    
     return (
-        <div>
+        <div className={styles.eventsListContainer}>
             <div className={styles.eventCards}>
                 {events?.map((event, index) => (
                     <EventCard
@@ -28,7 +29,10 @@ const EventsList:React.FC<Props> = ({ events }) =>  {
 
                 ))}
             </div>
-            <Button variant="outlined" onClick={() => router.push('/create-event')}>
+            <Button
+                variant="outlined"
+                onClick={() => router.push('/create-event')}
+                sx={{ width: "150px" }}>
                 <AddCircleOutlineIcon
                     fontSize="large"
                 />

@@ -8,9 +8,9 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
       // Create event
       const event = req.body;
       try {
-      const newEvent = create(event);
-      res.status(201).json(newEvent);
-      } catch(error) {
+        const newEvent = create(event);
+        res.status(201).json(newEvent);
+      } catch (error) {
         console.warn(error);
       }
       break;
