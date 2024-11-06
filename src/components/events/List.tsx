@@ -7,9 +7,13 @@ import { IEvent } from "@/models/eventSchema";
 import EventCard from "./Card";
 import styles from "../styles.module.css";
 
-export default function EventsList(
-    { events }: { events: Partial<IEvent>[] }
-) {
+
+interface Props {
+    events: Partial<IEvent>[];
+}
+
+
+const EventsList:React.FC<Props> = ({ events }) =>  {
     const router = useRouter();
 
     return (
@@ -33,3 +37,5 @@ export default function EventsList(
         </div>
     )
 }
+
+export default EventsList;

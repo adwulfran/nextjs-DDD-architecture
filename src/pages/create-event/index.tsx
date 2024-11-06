@@ -16,10 +16,10 @@ export default function CreateEventPage() {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [error, setError] = useState<IApiError | null>(null); // Typing the error
 
-    async function handleSubmit(data: FormValues) {
-        const _data = {
-            ...data,
-            date: data.date.toLocaleDateString()
+    async function handleSubmit(formData: FormValues) {
+        const event = {
+            ...formData,
+            date: formData.date.toLocaleDateString()
         };
 
         try {
@@ -29,7 +29,7 @@ export default function CreateEventPage() {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(_data),
+                body: JSON.stringify(event),
             });
             if (!res.ok) throw new Error('Failed to submit data');
 

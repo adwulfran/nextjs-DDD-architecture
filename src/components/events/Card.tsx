@@ -9,9 +9,7 @@ interface Props {
     goToDetail: () => void;
 }
 
-export default function EventCard(
-    { event, goToDetail }: Props
-) {
+const EventCard : React.FC<Props> = ({ event, goToDetail }) => {
     return (
         <Card sx={{ minWidth: 275 }}>
             <CardContent>
@@ -32,3 +30,5 @@ export default function EventCard(
         </Card>
     );
 }
+
+export default EventCard;

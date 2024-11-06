@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { eventSchema, FormValues } from '../validation/eventValidation';
@@ -11,6 +11,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import { IEvent } from '@/models/eventSchema';
 import styles from './styles.module.css'
+import { reformatDate } from '@/lib/reformatDate';
 
 
 interface EventFormProps {
@@ -19,10 +20,9 @@ interface EventFormProps {
 }
 
 const EventForm: React.FC<EventFormProps> = ({ initialData, onSubmit }) => {
-
-    const { control, handleSubmit, formState } = useForm<FormValues>({
+    const { control, handleSubmit, formState, setValue } = useForm<FormValues>({
         resolver: zodResolver(eventSchema),
-        defaultValues: initialData ? initialData : {
+        defaultValues: {
             title: "",
             description: "",
             format: "",
@@ -32,6 +32,19 @@ const EventForm: React.FC<EventFormProps> = ({ initialData, onSubmit }) => {
             maxCapacity: 1,
         }
     });
+
+    useEffect(() => {
+        if (initialData) {
+            // Set form values when props are updated
+            setValue('title', initialData.title);
+            setValue('description', initialData.description);
+            setValue('format', initialData.format);
+            setValue('date', new Date(reformatDate(`${initialData.date}`)));
+            setValue('time', new Date(initialData.time));
+            setValue('location', initialData.location);
+            setValue('maxCapacity', initialData.maxCapacity);
+        }
+    }, [initialData, setValue]);
 
     return (
         <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -52,6 +65,7 @@ const EventForm: React.FC<EventFormProps> = ({ initialData, onSubmit }) => {
                             }}
                             error={!!formState.errors.title}
                             helperText={formState.errors.title?.message}
+
                         />
                     )}
                 />
@@ -72,7 +86,6 @@ const EventForm: React.FC<EventFormProps> = ({ initialData, onSubmit }) => {
                         />
                     )}
                 />
-
                 <Controller
                     name="format"
                     control={control}
@@ -152,7 +165,6 @@ const EventForm: React.FC<EventFormProps> = ({ initialData, onSubmit }) => {
                         />
                     )}
                 />
-                
                 <Button type="submit" variant="contained" color="primary">Submit</Button>
             </form>
         </LocalizationProvider>

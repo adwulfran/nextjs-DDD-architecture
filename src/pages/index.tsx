@@ -11,7 +11,7 @@ interface EventProps {
 }
 
 
-const EventPage: NextPage<EventProps> = ({ events }) => {
+const IndexPage: NextPage<EventProps> = ({ events }) => {
 
   return (
     <div className={styles.main}>
@@ -37,4 +37,4 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   return { props: { events } };
 };
 
-export default EventPage
+export default IndexPage;
