@@ -1,7 +1,7 @@
 import '@testing-library/jest-dom'
 import { render, screen } from '@testing-library/react'
-import IndexPage from '.'
-import { readEvents } from '../../db'
+import IndexPage from './pages'
+import { readEvents } from '../db'
 import userEvent from '@testing-library/user-event';
 import mockRouter from 'next-router-mock';
 
