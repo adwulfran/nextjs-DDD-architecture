@@ -15,7 +15,6 @@ interface Props {
 
 const EventsList: React.FC<Props> = ({ events }) => {
     const router = useRouter();
-    console.log('render lists');
     
     return (
         <div className={styles.eventsListContainer}>

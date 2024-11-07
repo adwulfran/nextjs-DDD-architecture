@@ -22,7 +22,7 @@ const EventCard : React.FC<Props> = ({ event, goToDetail }) => {
                     <span>{event.date?.toString()}</span>
                     <span><Button onClick={goToDetail} color='inherit'><RemoveRedEyeRoundedIcon /></Button></span>
                 </Typography>
-                <Typography variant="h5" component="div">
+                <Typography variant="h5" component="div" data-testid="submitted-text">
                     {event.title}
                 </Typography>
                 <Typography sx={{ color: 'text.secondary', mb: 1.5 }}>{event.location}</Typography>
