@@ -20,7 +20,7 @@ const EventCard : React.FC<Props> = ({ event, goToDetail }) => {
                     justifyContent: 'space-between'
                 }}>
                     <span>{event.date?.toString()}</span>
-                    <span><Button onClick={goToDetail} ><RemoveRedEyeRoundedIcon /></Button></span>
+                    <span><Button onClick={goToDetail} color='inherit'><RemoveRedEyeRoundedIcon /></Button></span>
                 </Typography>
                 <Typography variant="h5" component="div">
                     {event.title}

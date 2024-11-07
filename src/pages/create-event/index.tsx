@@ -5,7 +5,8 @@ import EventForm from "@/components/EventForm";
 import { FormValues } from '@/validation/eventValidation';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useState } from 'react';
-
+import { CircularProgress } from '@mui/material';
+import styles from "../styles.module.css"
 
 interface IApiError {
     message: string;
@@ -42,9 +43,9 @@ export default function CreateEventPage() {
     }
 
     return (
-        <>
+        <div className={styles.eventPage}>
             {isLoading ?
-                (<> loading ... </>)
+                (<CircularProgress />)
                 :
                 (<>
                     <ArrowBackIcon
@@ -61,6 +62,6 @@ export default function CreateEventPage() {
                 :
                 (<></>)
             }
-        </>
+        </div>
     )
 }

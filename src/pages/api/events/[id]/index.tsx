@@ -6,12 +6,11 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     const { id } = req.query;
     switch (req.method) {
         case 'GET':
-            // Get all events
             try {
                 const event = findById(id as string);
                 res.status(200).json(event);
             } catch (error) {
-                console.warn(error)
+                console.warn(error);
             }
             break;
 

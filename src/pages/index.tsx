@@ -1,4 +1,3 @@
-
 import EventsSearch from '../components/events/Search';
 import EventsList from '../components/events/List';
 import { GetServerSideProps, NextPage } from 'next';
@@ -7,11 +6,12 @@ import styles from './styles.module.css'
 import { IEvent } from '@/models/eventSchema';
 import { IQuerySearch } from '@/models/querySearchSchema';
 import Pagination from '@/components/events/Pagination';
+import EventsFilter from '@/components/events/Filters';
+
 
 interface EventProps {
   events: Partial<IEvent>[];
 }
-
 
 const IndexPage: NextPage<EventProps> = ({ events }) => {
 
@@ -19,6 +19,7 @@ const IndexPage: NextPage<EventProps> = ({ events }) => {
     <div className={styles.main}>
       <h1>Events</h1>
       <EventsSearch />
+      <EventsFilter />
       <EventsList events={events} />
       <div>
         <Pagination totalPages={events.length} />

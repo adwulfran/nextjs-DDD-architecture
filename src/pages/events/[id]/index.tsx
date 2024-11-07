@@ -6,7 +6,8 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import fetcher from "@/lib/fetcher";
 import { FormValues } from "@/validation/eventValidation";
-
+import { CircularProgress } from "@mui/material";
+import styles from "../../styles.module.css";
 
 const EventDetailPage = () => {
     const router = useRouter();
@@ -46,14 +47,13 @@ const EventDetailPage = () => {
     }
 
     return (
-        <>
+        <div className={styles.eventPage}>
             {isLoading ?
-                <span> loading...</span>
+                <CircularProgress />
                 :
                 <EventForm onSubmit={handleSubmit} initialData={event} />
             }
-
-        </>
+        </div>
     )
 }
 

@@ -10,18 +10,22 @@ import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFnsV3'
 import SearchIcon from '@mui/icons-material/Search';
 
+
 export const searchSchema = z.object({
     title: z.string(),
     date: z.date(),
     format: z.string()
 });
 
-export type FormSearchValues = z.infer<typeof searchSchema>
+export type FormSearchValues = z.infer<typeof searchSchema>;
 
 export default function EventsSearch() {
     const searchParams = useSearchParams();
+
     const pathname = usePathname();
+    
     const { replace } = useRouter();
+
     const { control, handleSubmit } = useForm<FormSearchValues>({
         resolver: zodResolver(searchSchema),
         defaultValues: {
@@ -40,6 +44,8 @@ export default function EventsSearch() {
                 params.delete(key);
             }
         }
+        params.delete('page');
+        params.delete('radio');
         replace(`${pathname}?${params.toString()}`);
     }
 

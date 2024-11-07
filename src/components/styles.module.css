@@ -18,3 +18,7 @@
     align-items: center;
     gap: 1vh;
 }
+
+.pageNumber {
+    margin-bottom:1vh;
+}

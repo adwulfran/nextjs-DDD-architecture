@@ -3,4 +3,5 @@ export interface IQuerySearch {
     format?: string;
     date?: string;
     page?: string;
+    radio?:string;
 }

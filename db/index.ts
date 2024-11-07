@@ -1,3 +1,4 @@
+import { reformatDate } from "@/lib/reformatDate";
 import { IEvent } from "@/models/eventSchema";
 import { IQuerySearch } from "@/models/querySearchSchema";
 import fs from "fs";
@@ -34,30 +35,38 @@ export function create(event: IEvent) {
 }
 
 export function find(query: IQuerySearch) {
-    console.log(query)
-    const events = readEvents(); 
+    const events = readEvents();
 
-    const title = query?.title 
-    const format = query?.format 
-    const date = query?.date;
+    const title = query.title?.toLowerCase();
+    const format = query.format;
+    const date = query.date;
+    const radio = query.radio;
 
-    const result = events.filter((e) =>
-        e.title.includes(title ? title : "")
-        && (e.format ? e.format?.includes(format ? format : "") : true)
-        && (e.date ? e.date.toString()?.includes(date ? date : "") : true)
+    let result = events.filter((event) =>
+        event.title.toLowerCase().includes(title ? title : "")
+        && (event.format ? event.format?.includes(format ? format : "") : true)
+        && (event.date ? event.date.toString()?.includes(date ? date : "") : true)
     );
-   
+
+    switch (radio) {
+        case 'previous':
+            result = result.filter((event) => new Date(reformatDate(`${event.date}`)) < new Date());
+            break;
+        case 'futur':
+            result = result.filter((event) => new Date(reformatDate(`${event.date}`)) > new Date());
+            break;
+    }
+    
     const limit = 5;
     if (query.page) {
         const page = Number(query.page) - 1;
         return result.slice(
-            page*limit,
-            page*limit + limit
+            page * limit,
+            page * limit + limit
         )
     }
 
-    return result.slice(0,5)
-    
+    return result.slice(0, 5);
 }
 
 export function findById(id: string) {
@@ -66,11 +75,11 @@ export function findById(id: string) {
     return events.find(event => event.id === id)
 }
 
-export function findByIdAndUpdate(id: string,event:IEvent) {
+export function findByIdAndUpdate(id: string, event: IEvent) {
     const events = readEvents();
-    const updatedEvents =  events.map(_event => {
+    const updatedEvents = events.map(_event => {
         if (_event.id === id) {
-            return {...event, id};
+            return { ...event, id };
         }
         return _event;
     })
