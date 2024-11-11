@@ -29,7 +29,6 @@ const IndexPage: NextPage<EventProps> = ({ events }) => {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  console.log(`date : ${context.query.date}`)
   const events = find(context.query as IQuerySearch);
   return { props: { events } };
 };
