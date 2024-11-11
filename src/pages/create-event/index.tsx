@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import EventForm from "@/components/EventForm";
-import { FormValues } from '@/validation/eventValidation';
+import { FormValues } from '@/lib/validation/eventValidation';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useState } from 'react';
 import { CircularProgress } from '@mui/material';

@@ -3,19 +3,19 @@
 import React, { useEffect } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { eventSchema, FormValues } from '../validation/eventValidation';
+import { eventSchema, FormValues } from '../lib/validation/eventValidation';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFnsV3'
 import { TextField, Button, Select, MenuItem, CardContent, Card } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
-import { IEvent } from '@/models/eventSchema';
+import { Event } from '@/domain/event';
 import styles from './styles.module.css'
 import { reformatDate } from '@/lib/reformatDate';
 
 
 interface EventFormProps {
-    initialData?: IEvent;
+    initialData?: Event;
     onSubmit: (data: FormValues) => void;
 }
 

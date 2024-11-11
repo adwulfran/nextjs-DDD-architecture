@@ -1,11 +1,11 @@
 import * as React from 'react';
-import { IEvent } from '@/models/eventSchema';
+import { Event } from '@/domain/event';
 import RemoveRedEyeRoundedIcon from '@mui/icons-material/RemoveRedEyeRounded';
 import { Card, CardContent, Button, Typography } from '@mui/material';
 
 
 interface Props {
-    event: Partial<IEvent>;
+    event: Partial<Event>;
     goToDetail: () => void;
 }
 

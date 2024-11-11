@@ -1,16 +1,16 @@
 import EventsSearch from '../components/events/Search';
 import EventsList from '../components/events/List';
 import { GetServerSideProps, NextPage } from 'next';
-import { find } from '../../db';
 import styles from './styles.module.css'
-import { IEvent } from '@/models/eventSchema';
-import { IQuerySearch } from '@/models/querySearchSchema';
+import { Event } from '@/domain/event';
 import Pagination from '@/components/events/Pagination';
 import EventsFilter from '@/components/events/Filters';
+import { EventUseCase } from '@/use-case/EventUseCase';
+import { InMemoryEventRepository } from '@/infrastructure/repositories/inMemoryEventRepository';
 
 
 interface EventProps {
-  events: Partial<IEvent>[];
+  events: Partial<Event>[];
 }
 
 const IndexPage: NextPage<EventProps> = ({ events }) => {
@@ -29,7 +29,9 @@ const IndexPage: NextPage<EventProps> = ({ events }) => {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const events = find(context.query as IQuerySearch);
+  const eventRepository = new InMemoryEventRepository();
+  const eventUseCase = new EventUseCase(eventRepository);
+  const events = await eventUseCase.find(context.query as { [k: string]: string });
   return { props: { events } };
 };
 

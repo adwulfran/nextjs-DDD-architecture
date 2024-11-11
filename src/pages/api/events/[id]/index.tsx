@@ -1,13 +1,16 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { findById, findByIdAndUpdate } from '../../../../../db';
+import { InMemoryEventRepository } from '@/infrastructure/repositories/inMemoryEventRepository';
+import { EventUseCase } from '@/use-case/EventUseCase';
 
+const eventRepository = new InMemoryEventRepository();
+const eventUseCase = new EventUseCase(eventRepository);
 
-export default function handler(req: NextApiRequest, res: NextApiResponse) {
+export  default async function handler(req: NextApiRequest, res: NextApiResponse) {
     const { id } = req.query;
     switch (req.method) {
         case 'GET':
             try {
-                const event = findById(id as string);
+                const event = await eventUseCase.findById(id as string);
                 res.status(200).json(event);
             } catch (error) {
                 console.warn(error);
@@ -16,7 +19,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
 
         case 'PUT':
             try {
-                const event = findByIdAndUpdate(id as string, req.body);
+                const event = await eventUseCase.findByIdAndUpdate(id as string, req.body);
                 res.status(200).json(event);
             } catch (error) {
                 console.warn(error);

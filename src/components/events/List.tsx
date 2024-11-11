@@ -3,13 +3,13 @@
 import { useRouter } from "next/navigation";
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { Button } from "@mui/material";
-import { IEvent } from "@/models/eventSchema";
+import { Event } from "@/domain/event";
 import EventCard from "./Card";
 import styles from "../styles.module.css";
 
 
 interface Props {
-    events: Partial<IEvent>[];
+    events: Partial<Event>[];
 }
 
 
