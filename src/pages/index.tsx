@@ -6,7 +6,7 @@ import { Event } from '@/domain/event';
 import Pagination from '@/components/events/Pagination';
 import EventsFilter from '@/components/events/Filters';
 import { EventUseCase } from '@/use-case/EventUseCase';
-import { InMemoryEventRepository } from '@/infrastructure/repositories/inMemoryEventRepository';
+import { FakeDbEventRepository } from '@/infrastructure/repositories/fakeDbEventRepository';
 
 
 interface EventProps {
@@ -29,7 +29,7 @@ const IndexPage: NextPage<EventProps> = ({ events }) => {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const eventRepository = new InMemoryEventRepository();
+  const eventRepository = new FakeDbEventRepository();
   const eventUseCase = new EventUseCase(eventRepository);
   const events = await eventUseCase.find(context.query as { [k: string]: string });
   return { props: { events } };

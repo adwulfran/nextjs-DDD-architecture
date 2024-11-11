@@ -1,3 +1,5 @@
+
+
 export class Event {
     constructor(
         public id: string,
@@ -12,7 +14,7 @@ export class Event {
     ) { }
 
     // Est-ce que l'évenement est complet ?
-    isFull():boolean {
+    isFull? = (): boolean => {
         return this.participants!.length >= this.maxCapacity;
     }
 }

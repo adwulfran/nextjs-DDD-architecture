@@ -1,8 +1,8 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { InMemoryEventRepository } from '@/infrastructure/repositories/inMemoryEventRepository';
+import { FakeDbEventRepository } from '@/infrastructure/repositories/fakeDbEventRepository';
 import { EventUseCase } from '@/use-case/EventUseCase';
 
-const eventRepository = new InMemoryEventRepository();
+const eventRepository = new FakeDbEventRepository();
 const eventUseCase = new EventUseCase(eventRepository);
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {

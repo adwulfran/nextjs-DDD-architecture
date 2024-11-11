@@ -4,7 +4,7 @@ import { reformatDate } from "@/lib/reformatDate";
 import fs from "fs";
 import path from "path";
 
-export class InMemoryEventRepository implements IEventRepository {
+export class FakeDbEventRepository implements IEventRepository {
 
     async create(event: Event) {
         const events = await this.readEvents();
@@ -16,7 +16,7 @@ export class InMemoryEventRepository implements IEventRepository {
             date: event.date,
             time: event.time,
             location: event.location,
-            maxCapacity: event.maxCapacity,
+            maxCapacity: event.maxCapacity, 
         };
         events.push(newEvent);
         this.writeEvents(events);
