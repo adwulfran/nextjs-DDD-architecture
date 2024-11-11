@@ -23,7 +23,7 @@ export default function EventsSearch() {
     const searchParams = useSearchParams();
 
     const pathname = usePathname();
-
+    
     const { replace } = useRouter();
 
     const { control, handleSubmit } = useForm<FormSearchValues>({
@@ -58,7 +58,6 @@ export default function EventsSearch() {
                         control={control}
                         render={({ field }) => (
                             <TextField
-                                data-testid="input-field"
                                 {...field}
                                 placeholder="Search by title"
                             />
@@ -90,8 +89,8 @@ export default function EventsSearch() {
                             </Select>
                         )}
                     />
-                    <Button type="submit"  data-testid="submit-button" >
-                        <SearchIcon fontSize="large" />
+                    <Button  type="submit" >
+                        <SearchIcon  fontSize="large"/>
                     </Button>
                 </form>
             </LocalizationProvider>
