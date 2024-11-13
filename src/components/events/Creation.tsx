@@ -6,13 +6,12 @@ import { FormValues } from '@/lib/validation/eventValidation';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useState } from 'react';
 import { CircularProgress } from '@mui/material';
-import styles from "../styles.module.css"
 
 interface IApiError {
     message: string;
 }
 
-export default function CreateEventPage() {
+export default function EventsCreation() {
     const router = useRouter();
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [error, setError] = useState<IApiError | null>(null); // Typing the error
@@ -44,7 +43,7 @@ export default function CreateEventPage() {
     }
 
     return (
-        <div className={styles.eventPage}>
+        <div  style={{display: "flex", justifyContent:"center"}}>
             {isLoading ?
                 (<CircularProgress />)
                 :

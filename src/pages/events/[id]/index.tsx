@@ -1,61 +1,18 @@
-"use client"
+import { GetServerSideProps, GetServerSidePropsContext, NextPage } from "next";
+import EventDetails from "@/components/events/Details";
 
-import { Event } from "@/domain/event";
-import EventForm from "@/components/EventForm";
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
-import fetcher from "@/lib/fetcher";
-import { FormValues } from "@/lib/validation/eventValidation";
-import { CircularProgress } from "@mui/material";
-import styles from "../../styles.module.css";
+interface Props {
+    id : string;
+}
 
-const EventDetailPage = () => {
-    const router = useRouter();
-
-    const [event, setEvent] = useState<Event>();
-    const [isLoading, setIsLoading] = useState<boolean>(false);
-
-    const { id } = router.query;
-
-    useEffect(() => {
-        if (!id) return;
-        fetcher<Event>(`/api/events/${id}`).then((result) => setEvent(result));
-    }, [id]);
-
-    async function handleSubmit(formData: FormValues) {
-        const event = {
-            ...formData,
-            date: formData.date.toLocaleDateString()
-        };
-
-        try {
-            setIsLoading(true);
-            const res = await fetch(`/api/events/${id}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(event),
-            });
-            if (!res.ok) throw new Error('Failed to submit data');
-
-        } catch (error) {
-            console.warn(error);
-        } finally {
-            router.push('/');
-        }
-    }
-
+const EventDetailPage:NextPage<Props> = ({id}) => {
     return (
-        <div className={styles.eventPage}>
-            {isLoading ?
-                <CircularProgress />
-                :
-                <EventForm onSubmit={handleSubmit} initialData={event} />
-            }
-        </div>
+        <EventDetails id={id}/>
     )
 }
 
-
+export const getServerSideProps: GetServerSideProps = async (context: GetServerSidePropsContext) => {
+    const id = context.params?.id;
+    return { props: { id } };
+  };
 export default EventDetailPage;
