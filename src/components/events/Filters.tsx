@@ -5,19 +5,24 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
+
 const EventsFilter: React.FC = () => {
     const pathname = usePathname();
     const { replace } = useRouter();
     const searchParams = useSearchParams();
 
+
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const params = new URLSearchParams(searchParams);
+
         params.set('radio', event.target.value.toString());
         params.delete('date');
         params.delete('page');
+
         replace(`${pathname}?${params.toString()}`);
     };
 
+    
     return (
         <FormControl sx={{ display: "flex" }}>
             <RadioGroup

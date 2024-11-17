@@ -1,4 +1,4 @@
-import { Event } from "@/domain/event";
+import { Event } from "./event";
 
 export interface IEventRepository {
     create(event: Event): Promise<Event>;

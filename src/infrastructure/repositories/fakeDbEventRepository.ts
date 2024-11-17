@@ -1,5 +1,5 @@
 import { Event } from "@/domain/event";
-import { IEventRepository } from "@/interfaces/eventRepository";
+import { IEventRepository } from "@/domain/eventRepository";
 import { reformatDate } from "@/lib/reformatDate";
 import fs from "fs";
 import path from "path";
@@ -16,7 +16,7 @@ export class FakeDbEventRepository implements IEventRepository {
             date: event.date,
             time: event.time,
             location: event.location,
-            maxCapacity: event.maxCapacity, 
+            maxCapacity: event.maxCapacity,
         };
         events.push(newEvent);
         this.writeEvents(events);

@@ -7,6 +7,7 @@ const eventUseCase = new EventUseCase(eventRepository);
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     const { id } = req.query;
+
     switch (req.method) {
         case 'GET':
             try {
@@ -24,6 +25,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             } catch (error) {
                 console.warn(error);
             }
+            break;
         default:
             res.status(405).end(); // Method Not Allowed
     }

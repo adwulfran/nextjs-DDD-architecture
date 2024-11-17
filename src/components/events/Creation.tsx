@@ -16,12 +16,13 @@ export default function EventsCreation() {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [error, setError] = useState<IApiError | null>(null); // Typing the error
 
+   // const [data, loading, error, handleFetch, success] = useFetch()
     async function handleSubmit(formData: FormValues) {
         const event = {
             ...formData,
             date: formData.date.toLocaleDateString()
         };
-
+        //handleFetch('/api/events', 'post', body)
         try {
             setIsLoading(true);
             const res = await fetch('/api/events', {
@@ -43,7 +44,7 @@ export default function EventsCreation() {
     }
 
     return (
-        <div  style={{display: "flex", justifyContent:"center"}}>
+        <div style={{ display: "flex", justifyContent: "center" }}>
             {isLoading ?
                 (<CircularProgress />)
                 :

@@ -19,7 +19,7 @@ export const searchSchema = z.object({
 
 export type FormSearchValues = z.infer<typeof searchSchema>;
 
-export default function EventsSearch() {
+ const EventsSearch:React.FC = () => {
     const searchParams = useSearchParams();
 
     const pathname = usePathname();
@@ -97,3 +97,5 @@ export default function EventsSearch() {
         </div>
     );
 }
+
+export default EventsSearch;
