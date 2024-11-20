@@ -29,14 +29,17 @@
     },
     "types": [
       "node",
-      "next"
+      "next",
+      "jest",
+      "@playwright/test"
     ]
   },
   "include": [
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    ".next/types/**/*.ts"
+    ".next/types/**/*.ts",
+    "jest.config.js"
   ],
   "exclude": [
     "node_modules"
