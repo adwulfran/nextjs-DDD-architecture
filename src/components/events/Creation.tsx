@@ -7,10 +7,9 @@ import { CircularProgress } from '@mui/material';
 import { useFetch } from '@/hooks/useFetch';
 
 
-
-export default function EventsCreation() {
+const EventsCreation: React.FC = () => {
     const router = useRouter();
-    const { isLoading, error, handleSubmit } = useFetch('POST');
+    const { isLoading, error, handleSubmit } = useFetch('/api/events', 'POST');
 
     return (
         <div style={{ display: "flex", justifyContent: "center" }}>
@@ -35,3 +34,5 @@ export default function EventsCreation() {
         </div>
     )
 }
+
+export default EventsCreation;

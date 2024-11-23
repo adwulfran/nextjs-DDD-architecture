@@ -3,7 +3,7 @@ import { FormValues } from '@/lib/validation/eventValidation';
 import { useRouter } from "next/router";
 
 
-export function useFetch(method: string) {
+export function useFetch(url:string, method: string) {
     const router = useRouter();
 
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -17,7 +17,7 @@ export function useFetch(method: string) {
 
         try {
             setIsLoading(true);
-            const response = await fetch('/api/events', {
+            const response = await fetch(url, {
                 method,
                 headers: {
                     'Content-Type': 'application/json',

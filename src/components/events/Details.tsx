@@ -1,9 +1,9 @@
 import { Event } from "@/domain/event";
 import EventForm from "@/components/EventForm";
 import { useRouter } from "next/router";
-import {  useState } from "react";
-import { FormValues } from "@/lib/validation/eventValidation";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { CircularProgress } from "@mui/material";
+import { useFetch } from "@/hooks/useFetch";
 
 
 interface Prop {
@@ -13,39 +13,27 @@ interface Prop {
 
 const EventDetails: React.FC<Prop> = ({ event }) => {
     const router = useRouter();
-    const [isLoading, setIsLoading] = useState<boolean>(false);
-
-    async function handleSubmit(formData: FormValues) {
-        const data = {
-            ...formData,
-            date: formData.date.toLocaleDateString()
-        };
-
-        try {
-            setIsLoading(true);
-            const res = await fetch(`/api/events/${event.id}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data),
-            });
-            if (!res.ok) throw new Error('Failed to submit data');
-
-        } catch (error) {
-            console.warn(error);
-        } finally {
-            router.push('/');
-        }
-    }
-
+    const { isLoading, error, handleSubmit } = useFetch(`/api/events/${event.id}`, 'PUT');
 
     return (
-        <div style={{display: "flex", justifyContent:"center"}}>
+        <div style={{ display: "flex", justifyContent: "center" }}>
             {isLoading ?
                 <CircularProgress />
                 :
-                <EventForm onSubmit={handleSubmit} initialData={event} />
+                <>
+                    <ArrowBackIcon
+                        onClick={() => router.push('/')}
+                        sx={{ cursor: "pointer" }}
+                        fontSize="large"
+                    />
+                    <EventForm onSubmit={handleSubmit} initialData={event} />
+                </>
+            }
+
+            {error ?
+                (<> Something went wrong</>)
+                :
+                (<></>)
             }
         </div>
     )
