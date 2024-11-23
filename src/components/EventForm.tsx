@@ -60,11 +60,7 @@ const EventForm: React.FC<EventFormProps> = ({ initialData, onSubmit }) => {
                                     label="Title"
                                     variant="outlined"
                                     margin="normal"
-                                    slotProps={{
-                                        inputLabel: {
-                                            shrink: true,
-                                        }
-                                    }}
+                                    slotProps={{ inputLabel: { shrink: true, } }}
                                     error={!!formState.errors.title}
                                     helperText={formState.errors.title?.message}
                                 />
@@ -78,11 +74,7 @@ const EventForm: React.FC<EventFormProps> = ({ initialData, onSubmit }) => {
                                     {...field}
                                     label="Description"
                                     variant="outlined"
-                                    slotProps={{
-                                        inputLabel: {
-                                            shrink: true,
-                                        }
-                                    }}
+                                    slotProps={{ inputLabel: { shrink: true, } }}
                                     multiline rows={4}
                                 />
                             )}
@@ -144,11 +136,7 @@ const EventForm: React.FC<EventFormProps> = ({ initialData, onSubmit }) => {
                                     label="Location"
                                     variant="outlined"
                                     margin="normal"
-                                    slotProps={{
-                                        inputLabel: {
-                                            shrink: true,
-                                        }
-                                    }}
+                                    slotProps={{ inputLabel: { shrink: true, } }}
                                     error={!!formState.errors.location}
                                     helperText={formState.errors.location?.message}
                                 />
