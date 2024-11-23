@@ -1,10 +1,10 @@
 import { Event } from "@/domain/event";
 import EventForm from "@/components/EventForm";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
-import fetcher from "@/lib/fetcher";
+import {  useState } from "react";
 import { FormValues } from "@/lib/validation/eventValidation";
 import { CircularProgress } from "@mui/material";
+
 
 interface Prop {
     event: Event;
