@@ -3,12 +3,11 @@ import '@testing-library/jest-dom';
 import EventForm from './EventForm';
 import userEvent from '@testing-library/user-event';
 
-describe('DatePickerComponent', () => {
+describe('EventFormComponent', () => {
 
   it('shows an error when a past date is selected', async () => {
-    const fakeOnSubmit = () => {
-      console.log('fake submit')
-    }
+    const fakeOnSubmit = () => { };
+
     render(<EventForm onSubmit={fakeOnSubmit} />);
 
     const input = screen.getByLabelText('Select date');
@@ -20,7 +19,7 @@ describe('DatePickerComponent', () => {
     const submitButton = screen.getByText(/submit/i);
 
     await userEvent.click(submitButton);
-    
+
     await waitFor(() => {
       expect(screen.getByText('Must be future date')).toBeInTheDocument();
     });

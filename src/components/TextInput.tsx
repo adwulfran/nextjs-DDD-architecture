@@ -11,6 +11,7 @@ export default function TextInput<T extends FieldValues>(props: UseControllerPro
             label={props.name}
             variant="outlined"
             margin="normal"
+            sx={{ marginTop: "0px", marginBottom: "0px" }}
             error={!!formState.errors[props.name]}
             helperText={formState.errors[props.name]?.message?.toString()}
         />

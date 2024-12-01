@@ -1,14 +1,15 @@
 'use client';
 
-import { zodResolver } from "@hookform/resolvers/zod";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
-import { Button, MenuItem, Select, TextField } from '@mui/material';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Button, MenuItem, Select } from '@mui/material';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFnsV3'
 import SearchIcon from '@mui/icons-material/Search';
+import TextInput from "../TextInput";
+import DateInput from "../DateInput";
 
 
 export const searchSchema = z.object({
@@ -19,11 +20,11 @@ export const searchSchema = z.object({
 
 export type FormSearchValues = z.infer<typeof searchSchema>;
 
- const EventsSearch:React.FC = () => {
+const EventsSearch: React.FC = () => {
     const searchParams = useSearchParams();
 
     const pathname = usePathname();
-    
+
     const { replace } = useRouter();
 
     const { control, handleSubmit } = useForm<FormSearchValues>({
@@ -35,9 +36,9 @@ export type FormSearchValues = z.infer<typeof searchSchema>;
         }
     });
 
-    function onSubmit(data: FormSearchValues) {
+    function onSubmit(formData: FormSearchValues) {
         const params = new URLSearchParams(searchParams);
-        for (const [key, value] of Object.entries(data)) {
+        for (const [key, value] of Object.entries(formData)) {
             if (key) {
                 params.set(key, key !== "date" ? value.toString() : (value as Date).toLocaleDateString());
             } else {
@@ -46,6 +47,7 @@ export type FormSearchValues = z.infer<typeof searchSchema>;
         }
         params.delete('page');
         params.delete('radio');
+
         replace(`${pathname}?${params.toString()}`);
     }
 
@@ -53,28 +55,8 @@ export type FormSearchValues = z.infer<typeof searchSchema>;
         <div>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <form onSubmit={handleSubmit(onSubmit)}>
-                    <Controller
-                        name="title"
-                        control={control}
-                        render={({ field }) => (
-                            <TextField
-                                {...field}
-                                placeholder="Search by title"
-                            />
-                        )}
-                    />
-                    <Controller
-                        name="date"
-                        control={control}
-                        render={({ field }) => (
-                            <DatePicker
-                                {...field}
-                                label="Event Date"
-                                onChange={(date) => field.onChange(date)}
-                                value={field.value}
-                            />
-                        )}
-                    />
+                    <TextInput control={control} name="title" />
+                    <DateInput control={control} name="date" />
                     <Controller
                         name="format"
                         control={control}
@@ -89,8 +71,8 @@ export type FormSearchValues = z.infer<typeof searchSchema>;
                             </Select>
                         )}
                     />
-                    <Button  type="submit" >
-                        <SearchIcon  fontSize="large"/>
+                    <Button type="submit" data-testid="search" >
+                        <SearchIcon fontSize="large" />
                     </Button>
                 </form>
             </LocalizationProvider>
