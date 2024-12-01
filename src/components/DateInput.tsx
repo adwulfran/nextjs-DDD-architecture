@@ -8,7 +8,7 @@ export default function DateInput<T extends FieldValues>(props: UseControllerPro
     return (
         <DatePicker
             {...field}
-            label={props.name}
+            label={`Select ${props.name}`}
             onChange={(date) => field.onChange(date)}
             value={field.value}
             slotProps={{
