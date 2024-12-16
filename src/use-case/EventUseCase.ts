@@ -4,7 +4,7 @@ import { IEventRepository } from "@/domain/eventRepository";
 export class EventUseCase {
     constructor(private eventRepository: IEventRepository) { }
 
-    async create(event: Event): Promise<Event> {
+    async create(event: Omit<Event, "id">): Promise<Event> {
         return this.eventRepository.create(event);
     }
 

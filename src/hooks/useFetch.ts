@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { FormValues } from '@/lib/validation/eventValidation';
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 
 export function useFetch(url:string, method: string) {

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { eventSchema, FormValues } from '../lib/validation/eventValidation';
@@ -9,7 +9,6 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFnsV3'
 import { TextField, Button, Select, MenuItem, CardContent, Card } from '@mui/material';
 import { Event } from '@/domain/event';
 import styles from './styles.module.css'
-import { reformatDate } from '@/lib/reformatDate';
 import TextInput from './TextInput';
 import DateInput from './DateInput';
 
@@ -21,31 +20,18 @@ interface EventFormProps {
 
 
 const EventForm: React.FC<EventFormProps> = ({ initialData, onSubmit }) => {
-    const { handleSubmit, control, formState, setValue } = useForm<FormValues>({
+    const { handleSubmit, control, formState } = useForm<FormValues>({
         resolver: zodResolver(eventSchema),
-        defaultValues: {
+        defaultValues: initialData ? initialData : {
             title: "",
             description: "",
-            format: "",
+            format: "hybrid",
             date: new Date(),
             time: new Date(),
             location: "",
             maxCapacity: 1,
         }
     });
-
-    useEffect(() => {
-        if (initialData) {
-            // Set form values when props are updated
-            setValue('title', initialData.title);
-            setValue('description', initialData.description);
-            setValue('format', initialData.format);
-            setValue('date', new Date(reformatDate(`${initialData.date}`)));
-            setValue('time', new Date(initialData.time));
-            setValue('location', initialData.location);
-            setValue('maxCapacity', initialData.maxCapacity);
-        }
-    }, [initialData, setValue]);
 
     return (
         <Card sx={{ minWidth: 275 }}>

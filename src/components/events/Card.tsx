@@ -1,17 +1,22 @@
 import * as React from 'react';
 import { Event } from '@/domain/event';
 import RemoveRedEyeRoundedIcon from '@mui/icons-material/RemoveRedEyeRounded';
-import { Card, CardContent, Button, Typography } from '@mui/material';
+import  Card   from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 
 interface Props {
     event: Partial<Event>;
-    goToDetail: () => void;
 }
 
-const EventCard : React.FC<Props> = ({ event, goToDetail }) => {
-    return (
-        <Card sx={{ minWidth: 275 }}>
+export default  function EventCard({ event }: Props) {
+
+    return (<>
+       <Card sx={{ minWidth: 275 }}>
             <CardContent>
                 <Typography gutterBottom sx={{
                     color: 'text.secondary',
@@ -20,7 +25,10 @@ const EventCard : React.FC<Props> = ({ event, goToDetail }) => {
                     justifyContent: 'space-between'
                 }}>
                     <span>{event.date?.toString()}</span>
-                    <span><Button onClick={goToDetail} color='inherit'><RemoveRedEyeRoundedIcon /></Button></span>
+                    <span>
+                        <Link href={`/events/${event.id}/edit`}>
+                            <RemoveRedEyeRoundedIcon /></Link>
+                    </span>
                 </Typography>
                 <Typography variant="h5" component="div" data-testid="submitted-text">
                     {event.title}
@@ -28,7 +36,7 @@ const EventCard : React.FC<Props> = ({ event, goToDetail }) => {
                 <Typography sx={{ color: 'text.secondary', mb: 1.5 }}>{event.location}</Typography>
             </CardContent>
         </Card>
+    </>
     );
 }
 
-export default EventCard;

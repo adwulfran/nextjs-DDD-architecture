@@ -3,7 +3,9 @@ import { IEventRepository } from "@/domain/eventRepository";
 import { reformatDate } from "@/lib/reformatDate";
 import fs from "fs";
 import path from "path";
-
+function delay(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
 export class FakeDbEventRepository implements IEventRepository {
 
     async create(event: Event) {
@@ -23,6 +25,7 @@ export class FakeDbEventRepository implements IEventRepository {
         return newEvent;
     }
     async find(query: { [k: string]: string }) {
+        await delay(2000);
         const events = await this.readEvents();
 
         const title = query.title?.toLowerCase();
@@ -38,6 +41,7 @@ export class FakeDbEventRepository implements IEventRepository {
 
         switch (radio) {
             case 'previous':
+                // result = result.filter((event) => new Date(reformatDate(`${event.date}`)) < new Date());
                 result = result.filter((event) => new Date(reformatDate(`${event.date}`)) < new Date());
                 break;
             case 'futur':
@@ -45,16 +49,7 @@ export class FakeDbEventRepository implements IEventRepository {
                 break;
         }
 
-        const limit = 5;
-        if (query.page) {
-            const page = Number(query.page) - 1;
-            return result.slice(
-                page * limit,
-                page * limit + limit
-            )
-        }
-
-        return result.slice(0, 5);
+        return result;
     }
 
     async findById(id: string) {

@@ -9,7 +9,7 @@ const removeTime = (date: Date): Date => {
 export const eventSchema = z.object({
     title: z.string().min(1, { message: "Title is required" }),
     description: z.string().optional(),
-    format: z.string().min(4, { message: "Format is required" }),
+    format: z.enum(["physical", "online", "hybrid"]),
     date: z.date()
         .refine((date) => {
             const today = new Date();

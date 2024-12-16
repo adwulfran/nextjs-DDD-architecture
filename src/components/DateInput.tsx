@@ -16,7 +16,6 @@ export default function DateInput<T extends FieldValues>(props: UseControllerPro
                     error: !!formState.errors[props.name],
                     helperText: formState.errors[props.name]?.message?.toString()
                 },
-
             }}
         />
     )

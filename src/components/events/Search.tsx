@@ -1,6 +1,6 @@
 'use client';
 
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -10,11 +10,11 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFnsV3'
 import SearchIcon from '@mui/icons-material/Search';
 import TextInput from "../TextInput";
 import DateInput from "../DateInput";
-
+import { reformatDate } from "@/lib/reformatDate";
 
 export const searchSchema = z.object({
     title: z.string(),
-    date: z.date(),
+    date: z.date().nullish(),
     format: z.string()
 });
 
@@ -24,31 +24,32 @@ const EventsSearch: React.FC = () => {
     const searchParams = useSearchParams();
 
     const pathname = usePathname();
-
-    const { replace } = useRouter();
+;
+    const urlSearchParams = new URLSearchParams(searchParams!);
 
     const { control, handleSubmit } = useForm<FormSearchValues>({
         resolver: zodResolver(searchSchema),
         defaultValues: {
-            title: "",
-            date: new Date(),
+            title: urlSearchParams.get('title') ?? "",
+            date: urlSearchParams.get('date') ? new Date(reformatDate(urlSearchParams.get('date')!)) : null,
             format: ""
         }
     });
 
     function onSubmit(formData: FormSearchValues) {
-        const params = new URLSearchParams(searchParams);
+        const params = new URLSearchParams(searchParams!);
         for (const [key, value] of Object.entries(formData)) {
-            if (key) {
-                params.set(key, key !== "date" ? value.toString() : (value as Date).toLocaleDateString());
+            if (key && value !== null) {
+                params.set(key, key !== "date"  ? value.toString() : (value as Date).toLocaleDateString());
             } else {
                 params.delete(key);
             }
         }
         params.delete('page');
         params.delete('radio');
-
-        replace(`${pathname}?${params.toString()}`);
+        window.location.href = `${pathname}?${params.toString()}`
+        //reload(`${pathname}?${params.toString()}`);
+        // refresh()
     }
 
     return (
