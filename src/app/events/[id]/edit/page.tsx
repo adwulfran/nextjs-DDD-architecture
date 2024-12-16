@@ -2,7 +2,6 @@ import EventDetails from "@/components/events/Details";
 import { FakeDbEventRepository } from "@/infrastructure/repositories/fakeDbEventRepository";
 import { reformatDate } from "@/lib/reformatDate";
 import { EventUseCase } from "@/use-case/EventUseCase";
-import { getServerSession } from "next-auth";
 import { notFound } from "next/navigation";
 
 export default async function Page(props: { params: Promise<{ id: string }> }) {
@@ -17,9 +16,8 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
         notFound();
     }
 
-    const session = await getServerSession();
 
-    const readonly = event.creator === session?.user?.email;
+    //const readonly = event.creator === session?.user?.email;
 
     return (
         <EventDetails
@@ -28,7 +26,7 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
                 date: new Date(reformatDate(`${event.date}`)),
                 time: new Date(event.time)
             }}
-            readonly={readonly}
+           
         />
     )
 }

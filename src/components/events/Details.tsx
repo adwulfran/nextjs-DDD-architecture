@@ -10,11 +10,10 @@ import { useFetch } from "@/hooks/useFetch";
 
 interface Prop {
     event: Event;
-    readonly?:boolean;
 }
 
 
-const EventDetails: React.FC<Prop> = ({ event, readonly = true  }) => {
+const EventDetails: React.FC<Prop> = ({ event }) => {
     const router = useRouter();
     const { isLoading, error, handleSubmit } = useFetch(`/api/events/${event.id}`, 'PUT');
 
@@ -29,8 +28,7 @@ const EventDetails: React.FC<Prop> = ({ event, readonly = true  }) => {
                         sx={{ cursor: "pointer" }}
                         fontSize="large"
                     />
-                    { !readonly && <EventForm onSubmit={handleSubmit} initialData={event} /> }
-                    { readonly && <div>Readonly</div> }
+                    <EventForm onSubmit={handleSubmit} initialData={event} />
                 </>
             }
 

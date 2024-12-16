@@ -2,7 +2,7 @@ import { FakeDbEventRepository } from '@/infrastructure/repositories/fakeDbEvent
 import { EventUseCase } from '@/use-case/EventUseCase';
 import { getServerSession } from 'next-auth';
 import { NextRequest, NextResponse } from 'next/server';
-import { authOptions } from '../../auth/[...nextauth]/route';
+import { authOptions } from '@/lib/auth';
 
 const eventRepository = new FakeDbEventRepository();
 const eventUseCase = new EventUseCase(eventRepository);

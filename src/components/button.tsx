@@ -1,12 +1,11 @@
 "use client";
-import clsx from 'clsx';
 import { signOut } from 'next-auth/react';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
 }
 
-export function Button({ children, className, ...rest }: ButtonProps) {
+export function Button({ children, ...rest }: ButtonProps) {
     
   return (
     <button

@@ -3,9 +3,7 @@ import { Event } from '@/domain/event';
 import RemoveRedEyeRoundedIcon from '@mui/icons-material/RemoveRedEyeRounded';
 import  Card   from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
 

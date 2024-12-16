@@ -1,9 +1,7 @@
 'use client';
 
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { ArrowBack, ArrowForward } from '@mui/icons-material';
+import { usePathname, useSearchParams } from 'next/navigation';
 import React from 'react';
-import styles from "../styles.module.css";
 import Typography from '@mui/material/Typography';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
