@@ -10,14 +10,12 @@ interface Props {
     totalPages: number;
 }
 
-
 const EventsPagination: React.FC<Props> = ({ totalPages }) => {
     const pathname = usePathname();
-
     const searchParams = useSearchParams();
 
     const currentPage = Number(searchParams!.get('page')) || 1;
-    console.log("totalPages", totalPages)
+
     const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
         const params = new URLSearchParams(searchParams!);
         params.set('page', value.toString());

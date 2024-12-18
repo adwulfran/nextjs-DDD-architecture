@@ -3,9 +3,11 @@ import { IEventRepository } from "@/domain/eventRepository";
 import { reformatDate } from "@/lib/reformatDate";
 import fs from "fs";
 import path from "path";
+
 function delay(ms: number) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
+
 export class FakeDbEventRepository implements IEventRepository {
 
     async create(event: Event) {

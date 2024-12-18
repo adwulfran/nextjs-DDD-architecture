@@ -10,7 +10,6 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFnsV3'
 import SearchIcon from '@mui/icons-material/Search';
 import TextInput from "../TextInput";
 import DateInput from "../DateInput";
-import { reformatDate } from "@/lib/reformatDate";
 
 export const searchSchema = z.object({
     title: z.string(),
@@ -24,30 +23,33 @@ const EventsSearch: React.FC = () => {
     const searchParams = useSearchParams();
 
     const pathname = usePathname();
-;
+    
     const urlSearchParams = new URLSearchParams(searchParams!);
 
     const { control, handleSubmit } = useForm<FormSearchValues>({
         resolver: zodResolver(searchSchema),
         defaultValues: {
             title: urlSearchParams.get('title') ?? "",
-            date: urlSearchParams.get('date') ? new Date(reformatDate(urlSearchParams.get('date')!)) : null,
+            date: urlSearchParams.get('date') ? new Date(urlSearchParams.get('date')!) : null,
             format: ""
         }
     });
 
     function onSubmit(formData: FormSearchValues) {
         const params = new URLSearchParams(searchParams!);
-        for (const [key, value] of Object.entries(formData)) {
-            if (key && value !== null) {
-                params.set(key, key !== "date"  ? value.toString() : (value as Date).toLocaleDateString());
-            } else {
-                params.delete(key);
-            }
-        }
+
+        params.delete('title');
+        params.delete('date');
+        params.delete('format');
         params.delete('page');
         params.delete('radio');
-        window.location.href = `${pathname}?${params.toString()}`
+
+        for (const [key, value] of Object.entries(formData)) {
+            if (value && value !== "") {
+                params.set(key, value as string);
+            }
+        }
+        window.location.href = `${pathname}?${params.toString()}`;
         //reload(`${pathname}?${params.toString()}`);
         // refresh()
     }

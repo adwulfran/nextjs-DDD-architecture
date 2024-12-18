@@ -10,7 +10,6 @@ export default function DateInput<T extends FieldValues>(props: UseControllerPro
             {...field}
             label={`Select ${props.name}`}
             onChange={(date) => field.onChange(date)}
-            value={field.value}
             slotProps={{
                 textField: {
                     error: !!formState.errors[props.name],

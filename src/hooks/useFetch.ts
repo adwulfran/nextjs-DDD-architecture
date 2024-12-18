@@ -10,11 +10,6 @@ export function useFetch(url:string, method: string) {
     const [error, setError] = useState<null | unknown>(null);
 
     async function handleSubmit(formData: FormValues) {
-        const event = {
-            ...formData,
-            date: formData.date.toLocaleDateString()
-        };
-
         try {
             setIsLoading(true);
             const response = await fetch(url, {
@@ -22,7 +17,7 @@ export function useFetch(url:string, method: string) {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(event),
+                body: JSON.stringify(formData),
                 credentials: 'include',
             });
             if (!response.ok) throw new Error('Failed to submit data');

@@ -18,7 +18,7 @@ export const eventSchema = z.object({
         }, { message: "Must be future date" }).transform(removeTime),
     time: z.date(),
     location : z.string().min(1, { message: "Location is required" }), 
-    maxCapacity: z.number().positive("Max capacity must be positive"),
+    maxCapacity: z.coerce.number().positive("Max capacity must be positive"),
 });
 
 export type FormValues = z.infer<typeof eventSchema>;

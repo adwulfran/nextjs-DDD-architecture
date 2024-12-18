@@ -1,28 +1,19 @@
-import { FakeDbEventRepository } from '@/infrastructure/repositories/fakeDbEventRepository';
-import { EventUseCase } from '@/use-case/EventUseCase';
-import { getServerSession } from 'next-auth';
 import { NextRequest, NextResponse } from 'next/server';
-import { authOptions } from '@/lib/auth';
-
-const eventRepository = new FakeDbEventRepository();
-const eventUseCase = new EventUseCase(eventRepository);
-
+import Event from '@/models/Event';
+import { connectToDatabase } from '@/lib/mongodb';
 
 export async function PUT(req: NextRequest, props: { params: Promise<{ id: string }> }) {
     const { id } = await props.params;
+    const body = await req.json();
+
+    await connectToDatabase();
+
     try {
-        const session = await getServerSession(authOptions);
-        console.log(session)
-
-        const body = await req.json();
-        const event = await eventUseCase.findByIdAndUpdate(id as string, body);
-
+        const event = await Event.findByIdAndUpdate(id, body)
         return NextResponse.json({ message: event }, { status: 200 });
-
-        /*const event = req.body;
-        const newEvent = await eventUseCase.create(event);
-        res.status(201).json(newEvent);*/
     } catch (error) {
-        console.warn(error);
+        console.error(error);
+        return NextResponse.json({ error: 'Failed to update event' }, { status: 500 });
     }
 }
+

@@ -8,9 +8,15 @@ import { Suspense } from 'react';
 import Skeleton from '@mui/material/Skeleton';
 import { Button } from '../components/button';
 
+export interface ISearchQuery {
+  title?: string;
+  date?: string;
+  format?: string;
+  page?: string;
+}
 
 export default async function Page({ searchParams }: {
-  searchParams: Promise<{ [key: string]: string }>
+  searchParams: Promise<ISearchQuery>
 }) {
   const session = await getServerSession();
   const query = await searchParams;

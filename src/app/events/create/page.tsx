@@ -2,7 +2,7 @@ import EventsCreation from '@/components/events/Creation';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Edit Invoice',
+  title: 'Create event',
 };
 
 export default async function Page() {

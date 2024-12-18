@@ -1,21 +1,21 @@
 "use client"
 
-import { Event } from "@/domain/event";
 import EventForm from "@/components/EventForm";
 import { useRouter } from "next/navigation";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { CircularProgress } from "@mui/material";
 import { useFetch } from "@/hooks/useFetch";
+import { IEvent } from "@/models/Event";
 
 
 interface Prop {
-    event: Event;
+    event: IEvent;
 }
 
 
 const EventDetails: React.FC<Prop> = ({ event }) => {
     const router = useRouter();
-    const { isLoading, error, handleSubmit } = useFetch(`/api/events/${event.id}`, 'PUT');
+    const { isLoading, error, handleSubmit } = useFetch(`/api/events/${event._id}`, 'PUT');
 
     return (
         <div style={{ display: "flex", justifyContent: "center" }}>

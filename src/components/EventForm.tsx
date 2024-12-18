@@ -6,15 +6,15 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { eventSchema, FormValues } from '../lib/validation/eventValidation';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFnsV3'
-import { TextField, Button, Select, MenuItem, CardContent, Card } from '@mui/material';
-import { Event } from '@/domain/event';
+import { Button, Select, MenuItem, CardContent, Card } from '@mui/material';
 import styles from './styles.module.css'
 import TextInput from './TextInput';
 import DateInput from './DateInput';
+import { IEvent } from '@/models/Event';
 
 
 interface EventFormProps {
-    initialData?: Event;
+    initialData?: IEvent;
     onSubmit: (data: FormValues) => void;
 }
 
@@ -22,7 +22,7 @@ interface EventFormProps {
 const EventForm: React.FC<EventFormProps> = ({ initialData, onSubmit }) => {
     const { handleSubmit, control, formState } = useForm<FormValues>({
         resolver: zodResolver(eventSchema),
-        defaultValues: initialData ? initialData : {
+        defaultValues: initialData ?? {
             title: "",
             description: "",
             format: "hybrid",
@@ -65,19 +65,8 @@ const EventForm: React.FC<EventFormProps> = ({ initialData, onSubmit }) => {
 
                         <TextInput control={control} name="location" />
 
-                        <Controller
-                            name="maxCapacity"
-                            control={control}
-                            render={({ field }) => (
-                                <TextField
-                                    {...field}
-                                    label="Capacity"
-                                    type="number"
-                                    variant="outlined"
-                                />
-                            )}
-                        />
-                        
+                        <TextInput control={control} name="maxCapacity" />
+
                         <Button type="submit" variant="contained" color="primary">Submit</Button>
                     </form>
                 </LocalizationProvider>

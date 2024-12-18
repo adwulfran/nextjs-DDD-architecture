@@ -1,14 +1,14 @@
 import * as React from 'react';
-import { Event } from '@/domain/event';
 import RemoveRedEyeRoundedIcon from '@mui/icons-material/RemoveRedEyeRounded';
 import  Card   from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import Link from 'next/link';
+import { IEvent } from '@/models/Event';
 
 
 interface Props {
-    event: Partial<Event>;
+    event: Partial<IEvent>;
 }
 
 export default  function EventCard({ event }: Props) {
@@ -22,9 +22,9 @@ export default  function EventCard({ event }: Props) {
                     display: 'flex',
                     justifyContent: 'space-between'
                 }}>
-                    <span>{event.date?.toString()}</span>
+                    <span>{event.date?.toString().slice(0,15)}</span>
                     <span>
-                        <Link href={`/events/${event.id}/edit`}>
+                        <Link href={`/events/${event._id}/edit`}>
                             <RemoveRedEyeRoundedIcon /></Link>
                     </span>
                 </Typography>
