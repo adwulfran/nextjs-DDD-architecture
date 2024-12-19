@@ -2,9 +2,8 @@ import EventCard from "./Card";
 import styles from "../styles.module.css";
 import Link from 'next/link';
 import EventsPagination from './Pagination';
-import { connectToDatabase } from "@/lib/mongodb";
-import Event, { IEvent } from "@/models/Event";
 import { ISearchQuery } from "@/app/page";
+import { fetchEvents } from "@/lib/data";
 
 
 export default async function EventsList(props: { query?: ISearchQuery }) {
@@ -23,20 +22,7 @@ export default async function EventsList(props: { query?: ISearchQuery }) {
         }
     }
 
-    await connectToDatabase();
-    let events:IEvent[] = [];
-
-    try {
-        events = await Event.find(query);
-    } catch(error) {
-        console.error(error);
-    }
-
-    const limit = 5;
-    const eventsPaginated = events?.slice(
-        props.query?.page ? (Number(props.query?.page) - 1) * limit : 0,
-        props.query?.page ? (Number(props.query?.page) - 1) * limit + limit : limit,
-    );
+    const { eventsPaginated, numberOfEvents } = await fetchEvents(query);
 
     return (
         <div className={styles.eventsListContainer}>
@@ -48,7 +34,7 @@ export default async function EventsList(props: { query?: ISearchQuery }) {
                     />
                 ))}
             </div>
-            <EventsPagination totalPages={events.length} />
+            <EventsPagination totalPages={numberOfEvents} />
             <Link
                 href="/events/create"
                 className="flex h-10 items-center rounded-lg bg-blue-600 px-4 text-sm font-medium text-white transition-colors hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
