@@ -31,7 +31,7 @@ const EventsSearch: React.FC = () => {
         defaultValues: {
             title: urlSearchParams.get('title') ?? "",
             date: urlSearchParams.get('date') ? new Date(urlSearchParams.get('date')!) : null,
-            format: ""
+            format: urlSearchParams.get('format') ?? ""
         }
     });
 
@@ -50,8 +50,6 @@ const EventsSearch: React.FC = () => {
             }
         }
         window.location.href = `${pathname}?${params.toString()}`;
-        //reload(`${pathname}?${params.toString()}`);
-        // refresh()
     }
 
     return (

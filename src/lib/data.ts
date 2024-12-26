@@ -3,7 +3,8 @@ import { connectToDatabase } from "./mongodb";
 import { ISearchQuery } from "@/app/page";
 
 export async function fetchEvents(
-    query: Omit<ISearchQuery, 'title'> & { title?: { $regex: string; $options: string } }
+    query: Omit<ISearchQuery, 'title'> & { title?: { $regex: string; $options: string } },
+    page?: string
 ): Promise<{ eventsPaginated: IEvent[], numberOfEvents: number }> {
 
     await connectToDatabase();
@@ -13,8 +14,8 @@ export async function fetchEvents(
         events = await Event.find(query);
         const limit = 5;
         const eventsPaginated = events?.slice(
-            query?.page ? (Number(query?.page) - 1) * limit : 0,
-            query?.page ? (Number(query?.page) - 1) * limit + limit : limit,
+            page ? (Number(page) - 1) * limit : 0,
+            page ? (Number(page) - 1) * limit + limit : limit,
         );
 
         return {

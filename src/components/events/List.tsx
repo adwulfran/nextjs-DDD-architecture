@@ -9,7 +9,6 @@ import { fetchEvents } from "@/lib/data";
 export default async function EventsList(props: { query?: ISearchQuery }) {
 
     const query: Omit<ISearchQuery, 'title'> & { title?: { $regex: string; $options: string } } = {};
-
     if (props.query) {
         if (props.query.title) {
             query.title = { $regex: props.query.title, $options: 'i' };
@@ -20,9 +19,11 @@ export default async function EventsList(props: { query?: ISearchQuery }) {
         if (props.query.date) {
             query.date = props.query.date;
         }
+     
     }
 
-    const { eventsPaginated, numberOfEvents } = await fetchEvents(query);
+    const { eventsPaginated, numberOfEvents } = await fetchEvents(query,props.query?.page);
+  
 
     return (
         <div className={styles.eventsListContainer}>
