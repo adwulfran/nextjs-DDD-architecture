@@ -19,7 +19,7 @@ const EventDetails: React.FC<Prop> = ({ event, readOnly }) => {
     const { isLoading, error, handleSubmit } = useFetch(`/api/events/${event._id}`, 'PUT');
 
     return (
-        <div className="flex justify-center">
+        <div className="flex justify-center flex-col items-center gap-4">
             {isLoading ?
                 <CircularProgress />
                 :
@@ -29,9 +29,10 @@ const EventDetails: React.FC<Prop> = ({ event, readOnly }) => {
                         sx={{ cursor: "pointer" }}
                         fontSize="large"
                     />
-                    <h4> Created by {event.creator}</h4>
                     <EventForm onSubmit={handleSubmit} initialData={event} readOnly={readOnly} />
+                    <div>Creator of the event : { event.creator} </div>
                 </>
+                
             }
 
             {error ?
