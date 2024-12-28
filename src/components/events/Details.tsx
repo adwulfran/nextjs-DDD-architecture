@@ -19,7 +19,7 @@ const EventDetails: React.FC<Prop> = ({ event, readOnly }) => {
     const { isLoading, error, handleSubmit } = useFetch(`/api/events/${event._id}`, 'PUT');
 
     return (
-        <div style={{ display: "flex", justifyContent: "center", flexDirection: "column" }}>
+        <div className="flex justify-center">
             {isLoading ?
                 <CircularProgress />
                 :
