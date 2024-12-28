@@ -2,7 +2,6 @@
 import EventsSearch from '../components/events/Search';
 import EventsList from '../components/events/List';
 import EventsFilter from '../components/events/Filters';
-import styles from './styles.module.css'
 import { Suspense } from 'react';
 import Skeleton from '@mui/material/Skeleton';
 
