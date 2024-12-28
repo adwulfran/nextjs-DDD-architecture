@@ -10,15 +10,16 @@ import { IEvent } from "@/models/Event";
 
 interface Prop {
     event: IEvent;
+    readOnly: boolean;
 }
 
 
-const EventDetails: React.FC<Prop> = ({ event }) => {
+const EventDetails: React.FC<Prop> = ({ event, readOnly }) => {
     const router = useRouter();
     const { isLoading, error, handleSubmit } = useFetch(`/api/events/${event._id}`, 'PUT');
 
     return (
-        <div style={{ display: "flex", justifyContent: "center" }}>
+        <div style={{ display: "flex", justifyContent: "center", flexDirection: "column" }}>
             {isLoading ?
                 <CircularProgress />
                 :
@@ -28,7 +29,8 @@ const EventDetails: React.FC<Prop> = ({ event }) => {
                         sx={{ cursor: "pointer" }}
                         fontSize="large"
                     />
-                    <EventForm onSubmit={handleSubmit} initialData={event} />
+                    <h4> Created by {event.creator}</h4>
+                    <EventForm onSubmit={handleSubmit} initialData={event} readOnly={readOnly} />
                 </>
             }
 

@@ -16,10 +16,11 @@ import { IEvent } from '@/models/Event';
 interface EventFormProps {
     initialData?: IEvent;
     onSubmit: (data: FormValues) => void;
+    readOnly?:boolean;
 }
 
 
-const EventForm: React.FC<EventFormProps> = ({ initialData, onSubmit }) => {
+const EventForm: React.FC<EventFormProps> = ({ initialData, onSubmit, readOnly }) => {
     const { handleSubmit, control, formState } = useForm<FormValues>({
         resolver: zodResolver(eventSchema),
         defaultValues: initialData ?? {
@@ -37,7 +38,8 @@ const EventForm: React.FC<EventFormProps> = ({ initialData, onSubmit }) => {
         <Card sx={{ minWidth: 275 }}>
             <CardContent>
                 <LocalizationProvider dateAdapter={AdapterDateFns}>
-                    <form onSubmit={handleSubmit(onSubmit)} className={styles.eventForm}>
+                    <form onSubmit={handleSubmit(onSubmit)} className={styles.eventForm} >
+                    <fieldset disabled={readOnly} className="flex flex-col gap-4">
                         <TextInput control={control} name="title" />
 
                         <TextInput control={control} name="description" />
@@ -67,7 +69,8 @@ const EventForm: React.FC<EventFormProps> = ({ initialData, onSubmit }) => {
 
                         <TextInput control={control} name="maxCapacity" />
 
-                        <Button type="submit" variant="contained" color="primary">Submit</Button>
+                        { !readOnly ? <Button type="submit" variant="contained" color="primary">Submit</Button> : <></> }
+                        </fieldset>
                     </form>
                 </LocalizationProvider>
             </CardContent>
