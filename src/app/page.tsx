@@ -6,10 +6,7 @@ import { Suspense } from 'react';
 import Skeleton from '@mui/material/Skeleton';
 
 export interface ISearchQuery {
-  title?: string;
-  date?: string;
-  format?: string;
-  page?: string;
+  [k: string]: string;
 }
 
 export default async function Page({ searchParams }: {
