@@ -4,7 +4,7 @@ import React from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { eventSchema, FormValues } from '../lib/validation/eventValidation';
-import { LocalizationProvider } from '@mui/x-date-pickers';
+import { LocalizationProvider, TimePicker } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFnsV3'
 import { Button, Select, MenuItem, CardContent, Card } from '@mui/material';
 import styles from './styles.module.css'
@@ -63,7 +63,18 @@ const EventForm: React.FC<EventFormProps> = ({ initialData, onSubmit, readOnly }
 
                         <DateInput control={control} name="date" />
 
-                        <DateInput control={control} name="time" />
+                        <Controller
+                            name="time"
+                            control={control}
+                            render={({ field }) => (
+                                <TimePicker
+                                    {...field}
+                                    label="Time"
+                                    onChange={(time) => field.onChange(time)}
+                                    value={field.value}
+                                />
+                            )}
+                        />
 
                         <TextInput control={control} name="location" />
 
