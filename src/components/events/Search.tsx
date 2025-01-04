@@ -55,7 +55,7 @@ const EventsSearch: React.FC = () => {
     return (
         <div>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
-                <form onSubmit={handleSubmit(onSubmit)}>
+                <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col md:flex-row gap-2">
                     <TextInput control={control} name="title" />
                     <DateInput control={control} name="date" />
                     <Controller
