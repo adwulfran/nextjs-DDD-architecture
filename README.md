@@ -1,6 +1,6 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 ## Check live demo
-https://nextjs-ddd-architecture.vercel.app/
+https://nextjs-ddd-architecture.vercel.app
 
 ## Getting Started
 
